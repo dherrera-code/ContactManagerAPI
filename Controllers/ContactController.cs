@@ -38,7 +38,7 @@ namespace ContactManagerAPI.Controllers
             return NotFound(new {Message = "No Contacts found."});
         }
 
-        [HttpPut("UpdateContact/{id}")]
+        [HttpPut("UpdateContact")]
         public async Task<IActionResult> UpdateContact(ContactModel updatedContact)
         {
             var success = await _contactService.UpdateContact(updatedContact);
