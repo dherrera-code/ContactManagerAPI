@@ -11,6 +11,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<ContactServices>();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Clients", policy =>
+    {
+        policy.WithOrigins("https://contactmanagerdbh.vercel.app", "http://localhost:3001", "http://localhost:3000")
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
 var connectionString = builder.Configuration.GetConnectionString("GetConnection");
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
 
@@ -26,6 +35,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("Clients");
 
 app.UseAuthorization();
 
