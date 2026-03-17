@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ContactManagerAPI.Model;
 using ContactManagerAPI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
 
 namespace ContactManagerAPI.Controllers
 {
@@ -36,6 +37,25 @@ namespace ContactManagerAPI.Controllers
 
             return NotFound(new {Message = "No Contacts found."});
         }
-        
+
+        [HttpPut("UpdateContact/{id}")]
+        public async Task<IActionResult> UpdateContact(ContactModel updatedContact)
+        {
+            var success = await _contactService.UpdateContact(updatedContact);
+
+            if(success) return Ok(success);
+
+            return BadRequest(new {message = "Successfully updated contacts."});
+        }
+
+        [HttpDelete("DeleteContact/{id}")]
+        public async Task<IActionResult> RemoveContact(int id)
+        {
+            var success = await _contactService.RemoveContact(id);
+
+            if(success) return Ok(success);
+
+            return BadRequest(new {message = "Unable to remove contact!"});
+        }
     }
 }
