@@ -57,5 +57,10 @@ namespace ContactManagerAPI.Services
             _dataContact.Remove(contactToRemove);
             return await _dataContact.SaveChangesAsync() != 0;
         }
+
+        public async Task<ContactModel> GetContactByName(string name)
+        {
+            return await _dataContact.Contacts.SingleOrDefaultAsync(contact => contact.Name == name);
+        }
     }
 }

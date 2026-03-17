@@ -57,5 +57,14 @@ namespace ContactManagerAPI.Controllers
 
             return BadRequest(new {message = "Unable to remove contact!"});
         }
+        [HttpGet("GetContact/{name}")]
+        public async Task<IActionResult> GetContact(string name)
+        {
+            var success = await _contactService.GetContactByName(name);
+
+            if(success != null) return Ok(success);
+            
+            return BadRequest(new {message = "Unable to find "+ name});
+        }
     }
 }
