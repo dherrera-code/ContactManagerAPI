@@ -111,5 +111,21 @@ namespace ContactManagerAPI.Services
             );
             return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
         }
+
+        public async Task<bool> EditUsername(int id, CreateAccountDTO updateUser)
+        {
+            var currentUser = await _userData.Users.FindAsync(id);
+
+            if(currentUser == null) return false;
+
+            var securePassword = HashPassword(updateUser.Password);
+
+            currentUser.Username = updateUser.Username;
+            currentUser.Email = updateUser.Password;
+            currentUser.Hash = securePassword.Hash;
+            currentUser.Salt = securePassword.Salt;
+            _userData.Users.Update(currentUser);
+            return await _userData.SaveChangesAsync() != null;
+        }
     }
 }

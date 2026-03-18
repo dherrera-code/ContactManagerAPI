@@ -28,7 +28,7 @@ namespace ContactManagerAPI.Controllers
             return BadRequest(new{success = false, message = "User creation failed! Email is already in use Or Username is already taken!"});
         }
 
-        [HttpPut("Login")]
+        [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginDTO userLogin)
         {
             var success = await _userService.Login(userLogin);
@@ -37,6 +37,14 @@ namespace ContactManagerAPI.Controllers
 
             return Unauthorized(new {message = "The password you entered is incorrect. Please try again."});
         }
+        [HttpPut("UpdateUsername/{id}")]
+        public async Task<IActionResult> UpdateUserInfo(int id, CreateAccountDTO updateUser)
+        {
+            var success = await _userService.EditUsername(id, updateUser);
 
+            if(success) return Ok(new {success});
+
+            return BadRequest(new {Message = "Updating Username Failed! New Username may already be created!"});
+        }
     }
 }
