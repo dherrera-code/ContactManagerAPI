@@ -1,6 +1,9 @@
+using System.Text;
 using ContactManagerAPI.Context;
 using ContactManagerAPI.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +12,7 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<ContactServices>();
+builder.Services.AddScoped<AccountService>();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
 {
@@ -21,6 +25,31 @@ builder.Services.AddCors(options =>
 });
 var connectionString = builder.Configuration.GetConnectionString("GetConnection");
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
+
+
+var secretKey = builder.Configuration["JWT:Key"] ?? "MySuperDuperSecretKey209DoNotShare@236";
+var signingCredentials = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+
+        ValidIssuer = "",
+        ValidAudience = "",
+        IssuerSigningKey = signingCredentials
+    };
+});
+
 
 
 var app = builder.Build();

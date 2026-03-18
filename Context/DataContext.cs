@@ -14,5 +14,6 @@ namespace ContactManagerAPI.Context
             
         }
         public DbSet<ContactModel> Contacts { get; set; }
+        public DbSet<UserInfoModel> Users { get; set; }
     }
 }
