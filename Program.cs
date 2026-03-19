@@ -18,7 +18,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("Clients", policy =>
     {
-        policy.WithOrigins("https://contactmanagerdbh.vercel.app", "http://localhost:3001", "http://localhost:3000")
+        policy.WithOrigins("https://contactmanagerdbh.vercel.app/", "http://localhost:3001/", "http://localhost:3000/")
         .AllowAnyHeader()
         .AllowAnyMethod();
     });
