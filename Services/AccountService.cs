@@ -103,8 +103,8 @@ namespace ContactManagerAPI.Services
             var SigningCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
             var tokenOptions = new JwtSecurityToken(
-                issuer: "",
-                audience: "",
+                issuer: "https://contactmanagerdbh.vercel.app",
+                audience: "https://contactmanagerdbh.vercel.app",
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(45),
                 signingCredentials: SigningCredentials

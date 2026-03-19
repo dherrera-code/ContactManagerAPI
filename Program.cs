@@ -44,8 +44,8 @@ builder.Services.AddAuthentication(options =>
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
 
-        ValidIssuer = "",
-        ValidAudience = "",
+        ValidIssuer = "https://contactmanagerdbh.vercel.app",
+        ValidAudience = "https://contactmanagerdbh.vercel.app",
         IssuerSigningKey = signingCredentials
     };
 });
