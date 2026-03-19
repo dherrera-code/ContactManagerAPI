@@ -49,9 +49,9 @@ namespace ContactManagerAPI.Controllers
         }
 
         [HttpDelete("DeleteContact/{id}")]
-        public async Task<IActionResult> RemoveContact(int id)
+        public async Task<IActionResult> RemoveContact(ContactModel contactToRemove)
         {
-            var success = await _contactService.RemoveContact(id);
+            var success = await _contactService.RemoveContact(contactToRemove);
 
             if(success) return Ok(success);
 

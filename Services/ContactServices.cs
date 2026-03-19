@@ -49,12 +49,12 @@ namespace ContactManagerAPI.Services
             return await _dataContact.SaveChangesAsync() != 0;
         }
 
-        public async Task<bool> RemoveContact(int id)
+        public async Task<bool> RemoveContact(ContactModel contactToRemove)
         {
-            var contactToRemove = await GetContactById(id);
-            if(contactToRemove == null) return false;
+            var findContact = await GetContactById(contactToRemove.Id);
+            if(findContact == null) return false;
 
-            _dataContact.Remove(contactToRemove);
+            _dataContact.Remove(findContact);
             return await _dataContact.SaveChangesAsync() != 0;
         }
 
