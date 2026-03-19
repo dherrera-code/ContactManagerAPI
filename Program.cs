@@ -16,11 +16,9 @@ builder.Services.AddScoped<AccountService>();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("Clients", policy =>
+    options.AddPolicy("AllowAll", policy =>
     {
-        policy.WithOrigins("https://contactmanagerdbh.vercel.app/", "http://localhost:3001/", "http://localhost:3000/")
-        .AllowAnyHeader()
-        .AllowAnyMethod();
+        policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
     });
 });
 var connectionString = builder.Configuration.GetConnectionString("GetConnection");
@@ -64,7 +62,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors("Clients");
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 
