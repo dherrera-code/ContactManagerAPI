@@ -70,8 +70,8 @@ namespace ContactManagerAPI.Services
 
         public async Task<string> Login(LoginDTO userLogin)
         {
-            UserInfoModel currentUser = await GetUserInfoByUsernameAsync(userLogin.Username);
-            if(currentUser == null) currentUser = await GetUserinfoByEmailAsync(userLogin.Email);
+            UserInfoModel currentUser = await GetUserInfoByUsernameAsync(userLogin.LoginParam);
+            if(currentUser == null) currentUser = await GetUserinfoByEmailAsync(userLogin.LoginParam);
 
             if(currentUser == null) return null;
 
@@ -101,10 +101,10 @@ namespace ContactManagerAPI.Services
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:Key"]));
 
             var SigningCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-
+// https://contactmanagerdbh.vercel.app
             var tokenOptions = new JwtSecurityToken(
-                issuer: "https://contactmanagerdbh.vercel.app",
-                audience: "https://contactmanagerdbh.vercel.app",
+                issuer: "http://localhost:3000/",
+                audience: "http://localhost:3000/",
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(45),
                 signingCredentials: SigningCredentials
