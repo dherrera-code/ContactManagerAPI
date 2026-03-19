@@ -103,8 +103,8 @@ namespace ContactManagerAPI.Services
             var SigningCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 // https://contactmanagerdbh.vercel.app
             var tokenOptions = new JwtSecurityToken(
-                issuer: "http://localhost:3000/",
-                audience: "http://localhost:3000/",
+                issuer: "https://contactmanagerdbhapi-cnfhhvf7e7fse7gt.westus3-01.azurewebsites.net/",
+                audience: "https://contactmanagerdbhapi-cnfhhvf7e7fse7gt.westus3-01.azurewebsites.net/",
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(45),
                 signingCredentials: SigningCredentials

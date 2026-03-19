@@ -43,9 +43,9 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-
-        ValidIssuer = "http://localhost:3000/",
-        ValidAudience = "http://localhost:3000/",
+        //pass in our hosted API
+        ValidIssuer = "https://contactmanagerdbhapi-cnfhhvf7e7fse7gt.westus3-01.azurewebsites.net/",
+        ValidAudience = "https://contactmanagerdbhapi-cnfhhvf7e7fse7gt.westus3-01.azurewebsites.net/",
         IssuerSigningKey = signingCredentials
     };
 });
