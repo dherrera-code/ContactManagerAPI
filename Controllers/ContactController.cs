@@ -48,7 +48,7 @@ namespace ContactManagerAPI.Controllers
             return BadRequest(new {message = "Successfully updated contacts."});
         }
 
-        [HttpDelete("DeleteContact/{id}")]
+        [HttpDelete("DeleteContact")]
         public async Task<IActionResult> RemoveContact(ContactModel contactToRemove)
         {
             var success = await _contactService.RemoveContact(contactToRemove);
