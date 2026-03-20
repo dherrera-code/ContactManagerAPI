@@ -17,7 +17,7 @@ namespace ContactManagerAPI.Services
         }
         public async Task<bool> CreateContact(ContactModel newContact)
         {
-            if(DoesNameExist(newContact.Name) == null) return false;
+            if(await DoesNameExist(newContact.Name)) return false;
             
             ContactModel contact = new();
             contact.Name = newContact.Name;
