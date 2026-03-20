@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ContactManagerAPI.Model;
 using ContactManagerAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 
@@ -11,6 +12,7 @@ namespace ContactManagerAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class ContactController : ControllerBase
     {
         private readonly ContactServices _contactService;
