@@ -17,7 +17,7 @@ namespace ContactManagerAPI.Services
         }
         public async Task<bool> CreateContact(ContactModel newContact)
         {
-            // if(DoesNameExist(newContact.Name) == null) return false;
+            if(DoesNameExist(newContact.Name) == null) return false;
             
             ContactModel contact = new();
             contact.Name = newContact.Name;
@@ -26,10 +26,10 @@ namespace ContactManagerAPI.Services
             await _dataContact.Contacts.AddAsync(contact);
             return await _dataContact.SaveChangesAsync() != 0;
         }
-        // private async Task<bool> DoesNameExist(string name)
-        // {
-        //     return await _dataContact.Contacts.SingleOrDefaultAsync(contact => contact.Name == name) != null;
-        // }
+        private async Task<bool> DoesNameExist(string name)
+        {
+            return await _dataContact.Contacts.SingleOrDefaultAsync(contact => contact.Name == name) != null;
+        }
 
         public async Task<List<ContactModel>> GetAllContactsAsync() => await _dataContact.Contacts.ToListAsync();
 
